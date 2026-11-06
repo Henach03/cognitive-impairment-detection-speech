@@ -1,0 +1,55 @@
+# Example configuration - copy to configs/settings.yaml and fill in your
+# own values. configs/settings.yaml and configs/subject_ids.json are
+# gitignored; only these example placeholders are committed.
+
+# --- Remote questionnaire server (restricted data) -----------------------------
+# Credentials come from environment variables, never from this file:
+#   export DATA_SSH_HOST=...
+#   export DATA_SSH_USER=...
+#   export DATA_SSH_PASSWORD=...   (or set DATA_SSH_KEY for key-based auth)
+
+questionnaire_loader:
+  remote_dir: "/remote/path/to/questionnaires"   # placeholder
+  output_dir: "data/processed/scores"
+
+  # Map the actual questionnaire filenames on the server to generic labels.
+  # The real filenames never appear in the code or README.
+  questionnaires:
+    "q_demographics.txt": "demographics"
+    "q_orientation.txt": "orientation"              # e.g. 6CIT-style test
+    "q_care.txt": "care"
+    "q_word_recall_clock.txt": "word_recall_clock"  # e.g. Mini-Cog-style test
+    "q_speech_task.txt": "speech_task"
+
+  # Special handling
+  word_recall_clock_label: "word_recall_clock"
+  orientation_label: "orientation"
+  orientation_drop_rows: [2]
+
+# --- Audio preprocessing ---------------------------------------------------------
+audio:
+  input_dir: "data/raw/audio"
+  output_dir: "data/processed/audio"
+  folders: ["AD", "NonAD"]
+  target_sample_rate: 16000
+
+# --- Classification ----------------------------------------------------------------
+classification:
+  feature_type: "librosa"   # librosa | emobase | compare | egemaps | mrcg | minimal | all
+
+# --- Score curation ------------------------------------------------------------------
+curation:
+  input_dir: "data/processed/scores"
+  output_file: "data/processed/combined_scores.csv"
+  demographics_label: "demographics"
+  age_question: "age"          # exact question text used in your data
+  gender_question: "gender"   # exact question text used in your data
+  orientation_label: "orientation"
+  word_recall_clock_label: "word_recall_clock"
+
+# --- Regression ----------------------------------------------------------------------
+scores:
+  audio_dir: "data/processed/audio"
+  file: "data/processed/combined_scores.csv"
+  orientation_col: "orientation_score"
+  word_recall_clock_col: "word_recall_clock_score"

@@ -1,0 +1,4 @@
+{
+  "ad": ["SUBJ_001", "SUBJ_002", "SUBJ_003", "SUBJ_004", "SUBJ_005", "SUBJ_006", "SUBJ_007", "SUBJ_008"],
+  "non_ad": ["SUBJ_101", "SUBJ_102", "SUBJ_103", "SUBJ_104", "SUBJ_105", "SUBJ_106", "SUBJ_107", "SUBJ_108"]
+}
